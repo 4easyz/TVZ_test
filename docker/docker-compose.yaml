@@ -1,0 +1,66 @@
+version: "3"
+services:
+  nginx:
+    container_name: yii_nginx
+    build:
+      context: .
+      dockerfile: ./images/nginx/Dockerfile
+    ports: 
+      - "80:80"
+    volumes:
+      - ../project:/var/www/html
+    networks:
+      - yii  
+    depends_on:
+      - web
+  web:
+    container_name: yii_php
+    build:
+      context: ../
+      dockerfile: ./docker/images/web/Dockerfile
+    networks:
+      - yii
+    tty: true
+    volumes:
+      - ../project:/var/www/html
+    depends_on:
+      - db
+  db:
+    container_name: yii_mariadb
+#    image: mariadb
+    build:
+      context: .
+      dockerfile: ./images/db/Dockerfile
+    volumes:
+      - ../project:/var/www/html
+      - ../mariadb-data:/var/lib/mysql
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 1234
+    networks:
+      - yii
+  vue:
+    container_name: vue
+    build:
+      context: ..
+      dockerfile: ./docker/images/vue/Dockerfile
+    networks:
+      - yii
+    tty: true
+    ports: 
+      - "8080:8080"
+    volumes:
+      - ../project/basic/vue_app:/var/www/html/basic/vue_app
+      - '/var/www/html/basic/vue_app/node_modules'
+    depends_on:
+      - db
+      - web
+
+networks:
+  yii:
+    name: yii
