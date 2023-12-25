@@ -50,7 +50,7 @@ This project use the following ports :
 3. Open your favorite browser :
 
     * [http://localhost:8080](http://localhost:8080/) YII2
-    * [http://localhost:8080](http://localhost:80/) VUE
+    * [http://localhost:80](http://localhost:80/) VUE
 
 4. Stop and clear services
 
