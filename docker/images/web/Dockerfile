@@ -11,6 +11,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 
 WORKDIR /var/www/html/basic
-RUN chown -R www-data:www-data web
-RUN composer install
+#RUN chown -R www-data:www-data web
+#RUN composer install
 CMD ["php-fpm"]
