@@ -19,7 +19,8 @@ class CarController extends Controller
     /**
      * {@inheritdoc}
      */
-    public static function allowedDomains() {
+    public static function allowedDomains() 
+    {
         return [
             // '*',                        // star allows all domains
             'http://localhost:8080',
@@ -155,9 +156,6 @@ class CarController extends Controller
 
     public function actionCreate()
     {
-        $sql = 'SELECT * FROM permlog ORDER BY id DESC LIMIT 0, 1';
-        // $id = Car::primaryKey();
-        
         $model = new Car();
         
         if ($model->load($_POST) ) {
@@ -225,28 +223,13 @@ class CarController extends Controller
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        // $request = Yii::$app->request;
-        // $post = $request->post();
-        // $params = $request->bodyParams;
-        // $headers = Yii::$app->request->headers;
-        
-        // if($request->isPost){
-        //     $model = new Car;
-        //     $model->load($_POST);
-        //     $model->save();
-        //     // echo($post);
-
-        //     return ['ok'=>true];
-        // }
-
-        // return ['ok'=>false];
         $model = new Car;
 
         if ($model->load($_POST)) { // Получаем значения из textInput car/create
-            // var_dump($model);
             $model->save(); // Обновляем или добавляем значение в таблицу car
             return ['ok'=>"true"];
         }
+        
         return ['ok'=>"false"];
     }
 }
