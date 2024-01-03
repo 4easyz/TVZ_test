@@ -18,11 +18,13 @@ services:
     build:
       context: ../
       dockerfile: ./docker/images/web/Dockerfile
+    restart: unless-stopped
     networks:
       - yii
     tty: true
     volumes:
       - ../project:/var/www/html
+    command: ["sh", "-c", "php yii migrate --interactive=0 && php-fpm"]
     depends_on:
       - db
   db:

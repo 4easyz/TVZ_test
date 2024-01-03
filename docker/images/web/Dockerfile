@@ -14,4 +14,5 @@ WORKDIR /var/www/html/basic
 RUN chown -R www-data:www-data /var/www/html/basic/web
 RUN chown -R www-data:www-data /var/www/html/basic/runtime
 RUN composer install
+
 CMD ["php-fpm"]
