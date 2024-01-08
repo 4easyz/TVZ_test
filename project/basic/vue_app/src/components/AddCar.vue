@@ -5,13 +5,12 @@
         
         <p></p>
         <p>{{ status }}</p>
-        <!-- <p v-else>Ошибка</p> -->
         <button class="btn btn-primary " v-on:click="postRequest">Добавить</button>
     </div>
   </template>
   
   <script>
-//   import axios from 'axios'
+
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
   import axios from 'axios'

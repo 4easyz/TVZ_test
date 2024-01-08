@@ -29,7 +29,6 @@ services:
       - db
   db:
     container_name: yii_mariadb
-#    image: mariadb
     build:
       context: .
       dockerfile: ./images/db/Dockerfile

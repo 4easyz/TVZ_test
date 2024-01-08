@@ -3,13 +3,10 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\filters\Cors;
-use app\models\LoginForm;
-use app\models\ContactForm;
 use app\models\Car;
 use app\models\OperatorCar;
 use app\models\Operator;
@@ -22,7 +19,6 @@ class CarController extends Controller
     public static function allowedDomains() 
     {
         return [
-            // '*',                        // star allows all domains
             'http://localhost:8080',
         ];
     }
@@ -43,6 +39,7 @@ class CarController extends Controller
 
         return $behaviors;
     }
+
     public function beforeAction($action)
     {            
         if ($action->id == 'add-cars-api') {
@@ -51,28 +48,6 @@ class CarController extends Controller
 
         return parent::beforeAction($action);
     }
-    // public function behaviors()
-    // {
-    //     return [
-    //         'access' => [
-    //             'class' => AccessControl::className(),
-    //             'only' => ['logout'],
-    //             'rules' => [
-    //                 [
-    //                     'actions' => ['logout'],
-    //                     'allow' => true,
-    //                     'roles' => ['@'],
-    //                 ],
-    //             ],
-    //         ],
-    //         'verbs' => [
-    //             'class' => VerbFilter::className(),
-    //             'actions' => [
-    //                 'logout' => ['post'],
-    //             ],
-    //         ],
-    //     ];
-    // }
 
     /**
      * {@inheritdoc}
@@ -88,15 +63,6 @@ class CarController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
-    }
-
-    public function actionTest()
-    {
-        $carsList = Car::find()->all();
-		return $this->render('cars', [
-            'carsList' => $carsList,
-        ] );
-        //return $this->render('test', compact(carsList) );
     }
     
     public function actionCars()
@@ -152,23 +118,6 @@ class CarController extends Controller
     
         Yii::$app->session->setFlash('PostDeleted');
         Yii::$app->getResponse()->redirect(array('car/cars'));
-    }
-
-    public function actionCreate()
-    {
-        $model = new Car();
-        
-        if ($model->load($_POST) ) {
-            $model->save();
-            Yii::$app->response->redirect(array('car/read', 'id' => $model->id));
-        }
-
-        $operators = Operator::find()->all();
-
-        return $this->render('create', array(
-            'model' => $model,
-            'operators' => $operators
-        ));
     }
 
     public function actionUpdate($id=NULL)

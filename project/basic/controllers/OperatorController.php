@@ -5,7 +5,6 @@ namespace app\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\OperatorCar;
 use app\models\Operator;
@@ -59,6 +58,7 @@ class OperatorController extends Controller
     {
         $operatorList = Operator::find()->all();
         $model = new Operator;
+
 		return $this->render('operators', [
             'operatorList' => $operatorList,
         ] );
@@ -75,27 +75,16 @@ class OperatorController extends Controller
 
         $operatorsCar = OperatorCar::find()->where(['operator_id' => $model->id])->indexBy('car_id')->asArray()->all(); // Выводит всех операторов на машине по $model->id
         
-        $carsOnOperator;
-        
         foreach ($cars as $car) {
             if(in_array($car->id, array_keys($operatorsCar)))
                 $carsOnOperator[$car->id] = $car->name;
         }
-        // var_dump($carsOnOperator);
-        // exit();
+
         return $this->render('read', array(
             'model' => $model,
             'carsOnOperator' => $carsOnOperator,
         ));
-        // $operator = Operator::find()->where(['id' => $id])->one();;
 
-        // if ($operator === NULL){
-        //     return 'error'; 
-        // }
-        
-        // return $this->render('read', array(
-        //     'operator' => $operator
-        // ));
     }
 
     public function actionDelete($id=NULL)
@@ -119,21 +108,6 @@ class OperatorController extends Controller
     
         Yii::$app->session->setFlash('PostDeleted');
         Yii::$app->getResponse()->redirect(array('operator/operators'));
-    }
-
-    public function actionCreate()
-    {
-        $id = Operator::primaryKey();
-        
-        $model = new Operator();
-        
-        if ($model->load($_POST) ) {
-            $model->save();
-            Yii::$app->response->redirect(array('operator/read', 'id' => $model->id));
-        }
-        return $this->render('create', array(
-            'model' => $model
-        ));
     }
 
     public function actionUpdate($id=NULL)
