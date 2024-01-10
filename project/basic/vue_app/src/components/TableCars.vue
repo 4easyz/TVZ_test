@@ -32,7 +32,7 @@
     },
     created() {
         axios
-        .get('http://localhost:80/index.php?r=car%2Fcars-api')
+        .get('http://localhost:80/car/cars-api')
         .then(response => (this.carsData = response.data));
     },
   };

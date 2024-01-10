@@ -28,13 +28,13 @@
     {
         save(){
             axios
-            .post('http://localhost:80/index.php?r=car%2Fadd-cars-api', this.nameCar)
+            .post('http://localhost:80/car/add-cars-api', this.nameCar)
             .then(response => (this.nameCar = response.data.name));
         },
         postRequest() {
             axios({
                 method: 'post',
-                url: 'http://localhost:80/index.php?r=car%2Fadd-cars-api',
+                url: 'http://localhost:80/car/add-cars-api',
                 data: `Car[name]=${this.nameCar}`,
                 })
                 .then(response => {
