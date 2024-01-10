@@ -21,7 +21,7 @@ $this->title = 'Операторы';
 <script>
   $( document ).ready(function() {
     new DataTable('#table-operators', {
-        ajax: 'http://localhost/index.php?r=operator%2Fget-operators-json',
+        ajax: 'http://localhost/operator/get-operators-json',
         processing: true,
         serverSide: true,
         searching: false,

@@ -21,7 +21,7 @@ $this->title = 'Техника';
 <script>
   $( document ).ready(function() {
     new DataTable('#table-cars', {
-        ajax: 'http://localhost/index.php?r=car%2Fget-cars-json',
+        ajax: 'http://localhost/car/get-cars-json',
         processing: true,
         serverSide: true,
         searching: false,

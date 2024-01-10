@@ -176,17 +176,17 @@ class OperatorController extends Controller
     {
         $length = $_GET['length'];
         $start = $_GET['start'];
-        
+
         $db = Operator::find()->asArray()->limit($length)->offset($start)->all();
         
         foreach($db as $row)
         {
             $result[] = [$row['id'], 
-                "<a href='/index.php?r=operator/read&id=".$row['id']."'>".$row['name']."</a>",
-                "<a class=\"btn btn-primary btn-sm\" href='/index.php?r=operator/update&id=".$row['id']."'>
+                "<a href='".$row['id']."'>".$row['name']."</a>",
+                "<a class=\"btn btn-primary btn-sm\" href='update?id=".$row['id']."'>
                     <i class=\"bi bi-arrow-counterclockwise\"></i>
                 </a>
-                <a class=\"btn btn-danger btn-sm\" href='/index.php?r=operator/delete&id=".$row['id']."''>
+                <a class=\"btn btn-danger btn-sm\" href='delete?id=".$row['id']."''>
                     <i class=\"bi bi-trash\"></i>
                 </a>"];
         }

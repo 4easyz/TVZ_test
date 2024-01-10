@@ -11,7 +11,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'homeUrl' => ['site/index'],
+    'homeUrl' => ['/site/index'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -47,6 +47,17 @@ $config = [
                 ],
             ],
         ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            // 'enableStrictParsing' => true,
+            'showScriptName' => false,
+            'rules' => [
+                'car/<id:\d+>' => 'car/read',
+                'operator/<id:\d+>' => 'operator/read',
+            ],
+                // 'car' => 'car/cars',
+                // 'operator' => 'operator/operators',
+            ],
         'db' => $db,
     ],
     'params' => $params,

@@ -190,7 +190,7 @@ class CarController extends Controller
         foreach($db as $row)
         {
             $result[] = [$row['id'], 
-                "<a href='/index.php?r=car/read&id=".$row['id']."'>".$row['name']."</a>",
+                "<a href='".$row['id']."'>".$row['name']."</a>",
                 "<a class=\"btn btn-primary btn-sm\" href='/index.php?r=car/update&id=".$row['id']."'>
                     <i class=\"bi bi-arrow-counterclockwise\"></i>
                 </a>
