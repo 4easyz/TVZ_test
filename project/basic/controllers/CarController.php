@@ -122,7 +122,6 @@ class CarController extends Controller
 
     public function actionUpdate($id=NULL)
     {
-        
         if ($id === NULL) { // если $id === NULL то создадим новую машину в таблице car
             $model = new Car();
             $operators = Operator::find()->all();
@@ -139,7 +138,7 @@ class CarController extends Controller
             $model->save(); // Обновляем или добавляем значение в таблицу car
 
             $modeOperatorCar->load($_POST); // Получаем значения checkBox из car/create
-            if($modeOperatorCar->operators_on_car_id !== NULL){ //Если были нажаты checkbox 
+            if($modeOperatorCar->operators_on_car_id !== NULL) { //Если были нажаты checkbox 
                 $operatorsCar = new OperatorCar();
                 $operatorsCar -> setOperatorsOnCar($modeOperatorCar->operators_on_car_id, $model->id);//заполним таблицу operato_car для машины из $model->id
             }
@@ -180,5 +179,33 @@ class CarController extends Controller
         }
         
         return ['ok'=>"false"];
+    }
+
+    public function actionGetCarsJson()
+    {
+        $length = $_GET['length'];
+        $start = $_GET['start'];
+        $db = Car::find()->asArray()->limit($length)->offset($start)->all();
+        
+        foreach($db as $row)
+        {
+            $result[] = [$row['id'], 
+                "<a href='/index.php?r=car/read&id=".$row['id']."'>".$row['name']."</a>",
+                "<a class=\"btn btn-primary btn-sm\" href='/index.php?r=car/update&id=".$row['id']."'>
+                    <i class=\"bi bi-arrow-counterclockwise\"></i>
+                </a>
+                <a class=\"btn btn-danger btn-sm\" href='/index.php?r=car/delete&id=".$row['id']."''>
+                    <i class=\"bi bi-trash\"></i>
+                </a>"];
+        }
+
+        $totalRecords = count(Car::find()->asArray()->all());
+        
+        return json_encode([
+            'draw' => $_GET['draw'],
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $totalRecords,
+            'data' => $result,
+        ]);
     }
 }

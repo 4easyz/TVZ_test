@@ -5,11 +5,11 @@ use yii\bootstrap4\Html;
 
 $this->title = $title;
 ?>
-<div class="site-login">
+<div class="car-create">
     <h1><?= Html::encode($this->title) ?></h1>
     <hr>
     <?php $form = ActiveForm::begin([
-        'id' => 'car',
+        'id' => 'car-create',
         'layout' => 'horizontal',
         'fieldConfig' => [
             'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],

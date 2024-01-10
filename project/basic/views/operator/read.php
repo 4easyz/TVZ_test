@@ -1,7 +1,7 @@
 <?php use yii\helpers\Html; ?>
 <div class="pull-right btn-group">
-    <?php echo Html::a('Update', array('operator/update', 'id' => $model->id), array('class' => 'btn btn-primary')); ?>
-    <?php echo Html::a('Delete', array('operator/delete', 'id' => $model->id), array('class' => 'btn btn-danger')); ?>
+    <?php echo Html::a('<i class="bi bi-arrow-counterclockwise"></i>', array('operator/update', 'id' => $model->id), array('class' => 'btn btn-primary')); ?>
+    <?php echo Html::a('<i class="bi bi-trash"></i>', array('operator/delete', 'id' => $model->id), array('class' => 'btn btn-danger')); ?>
 </div>
 <hr />
 <h1 class="display-4"><?php echo $model->id . " - " . $model->name;?></h1>

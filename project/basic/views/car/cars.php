@@ -8,7 +8,7 @@ $this->title = 'Техника';
 <?php echo Html::a('Добавить технику', array('car/update', 'id'=>NULL), array('class' => 'btn btn-primary pull-right')); ?>
 <hr />
 
-<table class="table table-striped table-hover">
+<table id="table-cars" class="table table-striped table-bordered">
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -16,19 +16,21 @@ $this->title = 'Техника';
       <th scope="col">Опции</th>
     </tr>
   </thead>
-  <tbody>
-    
-    <?php foreach ($carsList as $car) { ?>
-        <tr>
-            <th scope="row"><?= $car->id ?></th>
-            <td><?php echo Html::a($car->name, array('car/read', 'id'=>$car->id)); ?></td>
-            <td>
-                <?php echo Html::a('Обновить', array('car/update', 'id'=>$car->id), array('class'=>'btn btn-primary btn-sm')); ?>
-                <?php echo Html::a('Удалить', array('car/delete', 'id'=>$car->id), array('class'=>'btn btn-danger btn-sm')); ?>
-            </td>
-        </tr>
-        
-    <?php } ?>
-    
-  </tbody>
 </table>
+
+<script>
+  $( document ).ready(function() {
+    new DataTable('#table-cars', {
+        ajax: 'http://localhost/index.php?r=car%2Fget-cars-json',
+        processing: true,
+        serverSide: true,
+        searching: false,
+        ordering: false,
+        buttons: ['excel', 'print', 'colvis'],
+        language: {
+          url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/ru.json'
+        }
+      });
+  });
+  </script>
+

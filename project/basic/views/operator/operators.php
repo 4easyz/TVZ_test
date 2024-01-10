@@ -7,28 +7,31 @@ $this->title = 'Операторы';
 ?>
 <?php echo Html::a('Добавить оператора', array('operator/update'), array('class' => 'btn btn-primary pull-right')); ?>
 <hr />
-<table class="table table-hover">
+
+<table id="table-operators" class="table table-striped table-bordered">
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Имя</th>
+      <th scope="col">Название</th>
       <th scope="col">Опции</th>
     </tr>
   </thead>
-  <tbody>
-    
-  <?php foreach ($operatorList as $operator) { ?>
-        <tr>
-            <th scope="row"><?= $operator->id ?></th>
-            <td><?php echo Html::a($operator->name, array('operator/read', 'id'=>$operator->id)); ?></td>
-            <td>
-                <?php echo Html::a('Обновить', array('operator/update', 'id'=>$operator->id), array('class'=>'btn btn-primary btn-sm')); ?>
-                <?php echo Html::a('Удалить', array('operator/delete', 'id'=>$operator->id), array('class'=>'btn btn-danger btn-sm')); ?>
-            </td>
-        </tr>
-        
-    <?php } ?>
-    
-  </tbody>
 </table>
+
+<script>
+  $( document ).ready(function() {
+    new DataTable('#table-operators', {
+        ajax: 'http://localhost/index.php?r=operator%2Fget-operators-json',
+        processing: true,
+        serverSide: true,
+        searching: false,
+        ordering: false,
+        buttons: ['excel', 'print', 'colvis'],
+        language: {
+          url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/ru.json'
+        }
+      });
+  });
+  </script>
+
 

@@ -150,4 +150,54 @@ class OperatorController extends Controller
             'title' => $title,
         ));
     }
+
+    public function actionCarsApi()
+    {
+        $model = Car::find()->asArray()->all();
+        
+        return json_encode($model);
+    }
+
+    public function actionAddCarsApi()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $model = new Car;
+
+        if ($model->load($_POST)) { // Получаем значения из textInput car/create
+            $model->save(); // Обновляем или добавляем значение в таблицу car
+            return ['ok'=>"true"];
+        }
+        
+        return ['ok'=>"false"];
+    }
+
+    public function actionGetOperatorsJson()
+    {
+        $length = $_GET['length'];
+        $start = $_GET['start'];
+        
+        $db = Operator::find()->asArray()->limit($length)->offset($start)->all();
+        
+        foreach($db as $row)
+        {
+            $result[] = [$row['id'], 
+                "<a href='/index.php?r=operator/read&id=".$row['id']."'>".$row['name']."</a>",
+                "<a class=\"btn btn-primary btn-sm\" href='/index.php?r=operator/update&id=".$row['id']."'>
+                    <i class=\"bi bi-arrow-counterclockwise\"></i>
+                </a>
+                <a class=\"btn btn-danger btn-sm\" href='/index.php?r=operator/delete&id=".$row['id']."''>
+                    <i class=\"bi bi-trash\"></i>
+                </a>"];
+        }
+
+        $totalRecords = count(Operator::find()->asArray()->all());
+        
+        return json_encode([
+            'draw' => $_GET['draw'],
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $totalRecords,
+            'data' => $result,
+        ]);
+    }
 }
