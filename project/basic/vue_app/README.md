@@ -1,4 +1,4 @@
-# my_first_app
+# test_application
 
 ## Project setup
 ```
